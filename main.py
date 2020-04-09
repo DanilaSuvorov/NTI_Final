@@ -1,5 +1,5 @@
 # coding: utf8
-
+import cv2
 import rospy
 from clever import srv
 from pyzbar import pyzbar
@@ -23,49 +23,49 @@ people = ["", "", "", "", "", "", "", "", ""]
 
 # Первый взлет
 # Взлет
-navigate(x=0, y=0, z=1.3, frame_id='body', speed=0.5, auto_arm=True)
+navigate(x=0, y=0, z=0.6, frame_id='body', speed=0.5, auto_arm=True)
 
-# Ожидание 5 секунд
-rospy.sleep(5)
+# Ожидание 10 секунд
+rospy.sleep(10)
 
 # 1
-navigate(x=0.295, y=0.295, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 2
-navigate(x=0.885, y=0.295, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 3
-navigate(x=0.295, y=0.885, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 4
-navigate(x=0.885, y=0.885, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 5
-navigate(x=0.295, y=1.475, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 6
-navigate(x=0.885, y=1.475, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 7
-navigate(x=0.295, y=2.065, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 8
-navigate(x=0.885, y=2.065, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 9
-navigate(x=0.59, y=2.655, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.59, y=2.655, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # возвращение домой
-navigate(x=0, y=0, z=0, speed=0.7, frame_id='aruco_map')
+navigate(x=0, y=0, z=0, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # Посадка
@@ -95,11 +95,12 @@ def image_callback(data):
         (x, y, w, h) = barcode.rect
         xc = x + w / 2
         yc = y + h / 2
-        print("Found {} with data {} with center at x={}, y={}".format(b_type, b_data, xc, yc))
+        cv2.putText(cv_image, "QR-код!", (xc, yc), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        print("Был найден {} со значением {} с центром в точках x={}, y={}".format(b_type, b_data, xc, yc))
         if b_data == "COVID - 2019":
             set_effect(r=255, g=0, b=0)  # пометка зараженного
             print("Заражен")
-            rospy.sleep(3)
+            rospy.sleep(5)
         bad_value.append(b_data)
 
 
@@ -109,50 +110,53 @@ rospy.spin()
 
 # Второй взлет
 # Взлет
-navigate(x=0, y=0, z=1.3, frame_id='body', speed=0.5, auto_arm=True)
+navigate(x=0, y=0, z=0.6, frame_id='body', speed=0.5, auto_arm=True)
 
-# Ожидание 5 секунд
-rospy.sleep(5)
+# Ожидание 10 секунд
+rospy.sleep(10)
 
 # 1
-navigate(x=0.295, y=0.295, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 2
-navigate(x=0.885, y=0.295, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 3
-navigate(x=0.295, y=0.885, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 4
-navigate(x=0.885, y=0.885, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 5
-navigate(x=0.295, y=1.475, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 6
-navigate(x=0.885, y=1.475, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 7
-navigate(x=0.295, y=2.065, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.295, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 8
-navigate(x=0.885, y=2.065, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 9
-navigate(x=0.59, y=2.655, z=1.3, speed=0.8, frame_id='aruco_map')
+navigate(x=0.59, y=2.655, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # возвращение домой
-navigate(x=0, y=0, z=0, speed=0.7, frame_id='aruco_map')
+navigate(x=0, y=0, z=0, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # Посадка
 land()
+
+print(bad_num)
+print(bad_value)
