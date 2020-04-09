@@ -33,35 +33,44 @@ navigate(x=0.295, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # 2
-navigate(x=0.885, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 3
 navigate(x=0.295, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
-# 4
-navigate(x=0.885, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
 
-# 5
+# 3
 navigate(x=0.295, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
-# 6
-navigate(x=0.885, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
 
-# 7
+# 4
 navigate(x=0.295, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
-# 8
+
+# 5
+navigate(x=0.59, y=2.655, z=0.6, speed=0.8, frame_id='aruco_map')
+rospy.sleep(5)
+
+
+
+# 6
 navigate(x=0.885, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
+
+
+# 7
+navigate(x=0.885, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
+rospy.sleep(5)
+
+
+# 8
+navigate(x=0.885, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
+rospy.sleep(5)
+
+
 # 9
-navigate(x=0.59, y=2.655, z=0.6, speed=0.8, frame_id='aruco_map')
+navigate(x=0.885, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
 rospy.sleep(5)
 
 # возвращение домой
@@ -78,7 +87,7 @@ bad_value = []
 
 for x in range(len(people)):
     if people[x] == "?" or people[x] == "+":
-        bad_num.append(x)
+        bad_num.append(x + 1)
 
 rospy.init_node('barcode_test')
 
@@ -108,6 +117,38 @@ image_sub = rospy.Subscriber('main_camera/image_raw', Image, image_callback, que
 
 rospy.spin()
 
+
+# Функция полета по конкретным пациентам
+def target(num):
+    if num == 1:
+        navigate(x=0.295, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 2:
+        navigate(x=0.295, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 3:
+        navigate(x=0.295, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 4:
+        navigate(x=0.295, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 5:
+        navigate(x=0.59, y=2.655, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 6:
+        navigate(x=0.885, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 7:
+        navigate(x=0.885, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    elif num == 8:
+        navigate(x=0.885, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+    else:
+        navigate(x=0.885, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
+        rospy.sleep(5)
+
+
 # Второй взлет
 # Взлет
 navigate(x=0, y=0, z=0.6, frame_id='body', speed=0.5, auto_arm=True)
@@ -115,41 +156,8 @@ navigate(x=0, y=0, z=0.6, frame_id='body', speed=0.5, auto_arm=True)
 # Ожидание 10 секунд
 rospy.sleep(10)
 
-# 1
-navigate(x=0.295, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 2
-navigate(x=0.885, y=0.295, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 3
-navigate(x=0.295, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 4
-navigate(x=0.885, y=0.885, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 5
-navigate(x=0.295, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 6
-navigate(x=0.885, y=1.475, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 7
-navigate(x=0.295, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 8
-navigate(x=0.885, y=2.065, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
-
-# 9
-navigate(x=0.59, y=2.655, z=0.6, speed=0.8, frame_id='aruco_map')
-rospy.sleep(5)
+for n in bad_num:
+    target(n)
 
 # возвращение домой
 navigate(x=0, y=0, z=0, speed=0.8, frame_id='aruco_map')
