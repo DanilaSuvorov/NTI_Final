@@ -50,8 +50,6 @@ def image_callback(data):
 
 image_sub = rospy.Subscriber('main_camera/image_raw', Image, image_callback, queue_size=1)
 
-rospy.spin()
-
 
 # Взлет
 navigate(x=0, y=0, z=0.6, frame_id='body', speed=0.5, auto_arm=True)
